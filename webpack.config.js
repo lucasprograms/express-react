@@ -1,6 +1,6 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -8,13 +8,14 @@ module.exports = {
   entry: [
     'babel-regenerator-runtime',
     'webpack-hot-middleware/client?reload=true',
+    'bootstrap-loader',
     path.resolve(__dirname, 'src', 'index.jsx'),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '--poop-app.js',
+    filename: '--express-react.js',
     publicPath: '/',
-    sourceMapFilename: '--poop-app.map',
+    sourceMapFilename: '--express-react.map',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
@@ -24,6 +25,10 @@ module.exports = {
       template: 'index.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
   ],
   module: {
     rules: [
@@ -36,6 +41,10 @@ module.exports = {
           loader: 'babel-loader',
           options: { presets: [['es2015', { modules: false }], 'stage-0', 'react'] },
         }],
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
       },
     ],
   },

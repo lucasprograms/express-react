@@ -54,10 +54,10 @@ app.get('/api/posts/*', (req, res) => {
 app.use(fallback('index.html', { root }));
 
 MongoClient.connect(`mongodb://${mlabUser}:${mlabPassword}@ds062889.mlab.com:62889/insta`, (err, database) => {
-  if (err) return console.log(err);
+  if (err) return console.log(err); // eslint-disable-line
   db = database;
   app.listen(port, () => {
-    console.log(`listening on ${port}`);
+    console.log(`listening on ${port}`); // eslint-disable-line
   });
 
   return null;

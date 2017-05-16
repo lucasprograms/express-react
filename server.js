@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const express = require('express');
 const fallback = require('express-history-api-fallback');
 const MongoClient = require('mongodb').MongoClient;
@@ -13,7 +14,9 @@ const config = require('./webpack.config.js');
 const port = process.env.PORT || 1337;
 const root = path.resolve(__dirname, 'dist');
 const app = express();
+
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const mlabUser = process.env.MLAB_USER;
 const mlabPassword = process.env.MLAB_PASSWORD;
@@ -48,6 +51,14 @@ app.get('/api/posts', (req, res) => {
 app.get('/api/posts/*', (req, res) => {
   request(`https://jsonplaceholder.typicode.com/posts/${req.params[0]}`, (error, response, body) => {
     res.send(body);
+  });
+});
+
+app.post('/api/posts/', (req, res) => {
+  console.log(req.body);
+  db.collection('posts').save(req.body, (err, result) => {
+    if (err) return console.log(err); // eslint-disable-line
+    res.send(result);
   });
 });
 

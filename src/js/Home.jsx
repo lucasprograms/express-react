@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import request from 'browser-request';
+// import request from 'browser-request';
 
 class Home extends Component {
   constructor() {
@@ -10,26 +10,26 @@ class Home extends Component {
     };
 
     this.updateCurrentPost = this.updateCurrentPost.bind(this);
-    this.submitPost = this.submitPost.bind(this);
+    // this.submitPost = this.submitPost.bind(this);
   }
 
-  submitPost(evt) {
-    evt.preventDefault();
+  // submitPost(evt) {
+  //   evt.preventDefault();
 
-    const onResponse = (er, response, body) => {
-      console.log(body);
-    };
+  //   const onResponse = (er, response, body) => {
+  //     console.log(body);
+  //   };
 
-    request(
-      {
-        method: 'POST',
-        url: '/api/posts',
-        body: '{"relaxed":true}',
-        json: true,
-      },
-        onResponse,
-    );
-  }
+  //   request(
+  //     {
+  //       method: 'POST',
+  //       url: '/api/posts',
+  //       body: '{"relaxed":true}',
+  //       json: true,
+  //     },
+  //       onResponse,
+  //   );
+  // }
 
   updateCurrentPost(evt) {
     this.setState({

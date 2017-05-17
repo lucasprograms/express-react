@@ -16,7 +16,7 @@ const root = path.resolve(__dirname, 'dist');
 const app = express();
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
-app.use(bodyParser.json());
+app.use(bodyParser.raw());
 
 const mlabUser = process.env.MLAB_USER;
 const mlabPassword = process.env.MLAB_PASSWORD;
@@ -55,9 +55,7 @@ app.get('/api/posts/*', (req, res) => {
 });
 
 app.post('/api/posts/', (req, res) => {
-  console.log(req.body);
   db.collection('posts').save(req.body, (err, result) => {
-    if (err) return console.log(err); // eslint-disable-line
     res.send(result);
   });
 });

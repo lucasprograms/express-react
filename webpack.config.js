@@ -9,7 +9,7 @@ module.exports = {
     'babel-regenerator-runtime',
     'webpack-hot-middleware/client?reload=true',
     'bootstrap-loader',
-    path.resolve(__dirname, 'src', 'index.jsx'),
+    path.resolve(__dirname, 'src', 'js', 'index.jsx'),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,6 +19,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      styles: path.resolve(__dirname, 'src', 'styles'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -43,8 +46,16 @@ module.exports = {
         }],
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000',
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: 'url-loader',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.sass$/,
+        loader: 'style-loader!css-loader!autoprefixer-loader!sass-loader?sourceMap=true',
       },
     ],
   },

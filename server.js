@@ -16,7 +16,7 @@ const root = path.resolve(__dirname, 'dist');
 const app = express();
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const mlabUser = process.env.MLAB_USER;
 const mlabPassword = process.env.MLAB_PASSWORD;

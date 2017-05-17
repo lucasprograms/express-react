@@ -20,7 +20,15 @@ class Home extends Component {
       console.log(body);
     };
 
-    request({ method: 'POST', url: '/api/posts', body: '{"relaxed":true}', json: true }, onResponse);
+    request(
+      {
+        method: 'POST',
+        url: '/api/posts',
+        body: '{"relaxed":true}',
+        json: true,
+      },
+        onResponse,
+    );
   }
 
   updateCurrentPost(evt) {
